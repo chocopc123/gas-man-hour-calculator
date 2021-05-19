@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_self">
+  </head>
+  <body>
+    <div id="app">
+      <button onclick="google.script.run.withSuccessHandler(show).withFailureHandler(failure).run()">RUN</button>
+      {{ manHourData }}
+    </div>
+  </body>
+  <script>
+    function failure() {
+      console.log(404);
+    }
+  </script>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script>
+  function show(manHourData){
+    new Vue({
+      el: '#app',
+      data: {
+        manHourData: manHourData
+      }
+    });
+  }
+</script>
