@@ -110,7 +110,7 @@ function convertStringTime(json) {
 function createStringTime(hour, rem) {
   const stringHour = hour + 'h';
   if(rem !== 0) {
-    return stringHour + rem;
+    return stringHour + rem + 'm';
   } else {
     return stringHour;
   }
