@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <base target="_self">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <?!= HtmlService.createHtmlOutputFromFile('style.css').getContent(); ?>
+    <title>ManHourCalculator</title>
   </head>
+
   <body>
-    <div id="app">
-      <button @click="init">RUN</button>
-      {{ manHourData }}
+
+    <div id="app" v-cloak class="container">
+      <button type="button" class="btn btn-primary mx-auto d-block my-2" @click="init">Calculate!!</button>
+      <ul class="list-unstyled text-center">
+        <li v-for="(data, index) in manHourData" class="d-inline-block px-3">
+          <span class="custom-badge">{{ index }}</span> {{ data }}
+        </li>
+      </ul>
     </div>
+
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   </body>
+
 </html>
 
 <script>
   var app = new Vue({
     el: '#app',
     data: {
-      manHourData: ''
+      manHourData: {}
     },
     methods: {
       init: function() {
