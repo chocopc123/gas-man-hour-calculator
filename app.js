@@ -46,9 +46,8 @@ function run() {
     ]
   };
   const manHourData = getDatabase(options, databaseID);
-  const manHourResult = calcManHour(manHourData);
-  console.log(manHourResult);
-  return manHourResult;
+  const [json, colorJson] = calcManHour(manHourData);
+  return [json, colorJson];
 }
 
 
@@ -70,19 +69,22 @@ function getBlocks(options, pageID) {
 
 function calcManHour(manHourData) {
   const usageJson = {};
+  const colorJson = {};
   manHourData.forEach(function(data) {
     if(!data.properties.Category) {
       return true;
     }
-    const index = data.properties.Category.select.name;
+    const category = data.properties.Category.select.name;
+    const color = data.properties.Category.select.color;
     const usage = data.properties.Usage.rich_text[0].plain_text;
-    if(usageJson[index]){
-      usageJson[index] += convertIntMinutes(usage);
+    if(usageJson[category]){
+      usageJson[category] += convertIntMinutes(usage);
     } else {
-      usageJson[index] = convertIntMinutes(usage);
+      usageJson[category] = convertIntMinutes(usage);
+      colorJson[category] = color;
     }
   });
-  return convertStringTime(usageJson);
+  return [convertStringTime(usageJson), colorJson];
 }
 
 function convertIntMinutes(time) {
