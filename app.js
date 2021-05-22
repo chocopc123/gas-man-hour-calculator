@@ -5,6 +5,10 @@ function doGet() {
 function run() {
   const apiKey = PropertiesService.getScriptProperties().getProperty('API_KEY');
   const parentDatabaseID = PropertiesService.getScriptProperties().getProperty('DATABASE_URL');
+  const parentTimeColumnName = 'Time'
+  const endTimeColumnName = 'Endtime';
+  const categoryColumnName = 'Category';
+
   let options = {
     'method' : 'post',
     'headers': {
@@ -15,7 +19,7 @@ function run() {
     'payload': JSON.stringify({
       "sorts": [
         {
-          "property": "Time",
+          "property": parentTimeColumnName,
           "direction": "descending"
         }
       ]
@@ -43,14 +47,14 @@ function run() {
     'payload': JSON.stringify({
       "sorts": [
         {
-          "property": "Endtime",
+          "property": endTimeColumnName,
           "direction": "ascending"
         }
       ]
     })
   };
   const manHourData = getDatabase(options, databaseID);
-  const [json, colorJson] = calcManHour(manHourData);
+  const [json, colorJson] = calcManHour(manHourData, endTimeColumnName, categoryColumnName);
   return [json, colorJson];
 }
 

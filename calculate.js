@@ -1,13 +1,13 @@
-function calcManHour(manHourData) {
+function calcManHour(manHourData, endTimeColumnName, categoryColumnName) {
   const usageJson = {};
   const colorJson = {};
   let previousEndtime = '';
   let first = true;
   manHourData.forEach(function(data) {
-    if(!data.properties.Endtime.rich_text[0]) {
+    if(!data.properties[endTimeColumnName].rich_text[0]) {
       return true;
     }
-    const endtime = data.properties.Endtime.rich_text[0].plain_text.split(':')
+    const endtime = data.properties[endTimeColumnName].rich_text[0].plain_text.split(':')
     if(first) {
       previousEndtime = endtime;
       first = false;
@@ -18,8 +18,8 @@ function calcManHour(manHourData) {
     previousEndtime = endtime;
 
     const usage = usageHour * 60 + usageMinutes;
-    const category = data.properties.Category.select.name;
-    const color = data.properties.Category.select.color;
+    const category = data.properties[categoryColumnName].select.name;
+    const color = data.properties[categoryColumnName].select.color;
     if(usageJson[category]){
       usageJson[category] += usage;
     } else {
