@@ -2,24 +2,27 @@
 <html>
 
   <head>
+    <title>ManHourCalculator</title>
     <base target="_self">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loaders@3.3.0/dist/vue-loaders.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue-loaders@3.3.0/dist/vue-loaders.umd.js"></script>
+
     <?!= HtmlService.createHtmlOutputFromFile('style.css').getContent(); ?>
-    <title>ManHourCalculator</title>
   </head>
 
   <body>
 
     <div id="app" v-cloak class="container">
-      <button type="button" class="btn btn-primary mx-auto d-block my-2" @click="init">Calculate!!</button>
-      <ul class="list-unstyled text-center">
+      <button type="button" class="btn btn-primary mx-auto d-block my-3" @click="init">Calculate!!</button>
+      <vue-loaders v-if="loading" name="ball-beat" color="royalblue" scale="1" class="d-block mx-auto text-center"></vue-loaders>
+      <ul v-if="manHourData" class="list-unstyled text-center">
         <li v-for="(usage, category) in manHourData" class="d-inline-block px-2">
           <span class="badge" :class='`bg-${colors[category]}`'>{{ category }}</span> {{ usage }}
         </li>
       </ul>
     </div>
-
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   </body>
@@ -27,17 +30,22 @@
 </html>
 
 <script>
-  var app = new Vue({
+  var VueLoaders = window['VueLoaders'];
+  Vue.use(VueLoaders);
+  const app = new Vue({
     el: '#app',
     data: {
-      manHourData: {},
-      colors: {}
+      loading: false,
+      manHourData: null,
+      colors: null
     },
     methods: {
       init: function() {
+        this.loading = true;
         google.script.run.withSuccessHandler(this.success).withFailureHandler(this.failure).run();
       },
       success: function(data) {
+        this.loading = false;
         this.manHourData = data[0];
         this.colors = data[1];
       },
