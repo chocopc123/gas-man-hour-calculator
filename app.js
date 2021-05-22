@@ -2,7 +2,7 @@ function doGet() {
   return HtmlService.createTemplateFromFile('index').evaluate().setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
-function run(title = 'Hello') {
+function run(title = null) {
   const apiKey = PropertiesService.getScriptProperties().getProperty('API_KEY');
   const parentDatabaseID = PropertiesService.getScriptProperties().getProperty('DATABASE_URL');
   const titleColumnName = 'Title'
@@ -27,7 +27,7 @@ function run(title = 'Hello') {
     })
   };
   const pageList = getDatabase(options, parentDatabaseID);
-  const pageID = getPageId(pageList);
+  const pageID = getPageId(pageList, title, titleColumnName);
 
   console.log('最新ページID: ' + pageID);
   options = {
@@ -61,7 +61,7 @@ function run(title = 'Hello') {
   return [json, colorJson];
 }
 
-function getPageId(pageList) {
+function getPageId(pageList, title, titleColumnName) {
   let pageID = null;
   if(title) {
     Object.keys(pageList).forEach(function(key) {
