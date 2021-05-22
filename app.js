@@ -26,19 +26,9 @@ function run(title = 'Hello') {
       ]
     })
   };
-  let pageID = null;
-  if(title) {
-    const pageList = getDatabase(options, parentDatabaseID);
-    Object.keys(pageList).forEach(function(key) {
-      const pageListTitle = pageList[key].properties[titleColumnName].title[0];
-      if(pageListTitle && pageListTitle.plain_text === title) {
-        pageID = pageList[key].id;
-      }
-    });
-  }
-  if(!pageID) {
-    pageID = getDatabase(options, parentDatabaseID)[0].id;
-  }
+  const pageList = getDatabase(options, parentDatabaseID);
+  const pageID = getPageId(pageList);
+
   console.log('最新ページID: ' + pageID);
   options = {
     'method' : 'get',
@@ -69,6 +59,22 @@ function run(title = 'Hello') {
   const manHourData = getDatabase(options, databaseID);
   const [json, colorJson] = calcManHour(manHourData, endTimeColumnName, categoryColumnName);
   return [json, colorJson];
+}
+
+function getPageId(pageList) {
+  let pageID = null;
+  if(title) {
+    Object.keys(pageList).forEach(function(key) {
+      const pageListTitle = pageList[key].properties[titleColumnName].title[0];
+      if(pageListTitle && pageListTitle.plain_text === title) {
+        pageID = pageList[key].id;
+      }
+    });
+  }
+  if(!pageID) {
+    pageID = pageList[0].id;
+  }
+  return pageID;
 }
 
 function getDatabase(options, databaseID) {
