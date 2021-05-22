@@ -2,9 +2,10 @@ function doGet() {
   return HtmlService.createTemplateFromFile('index').evaluate().setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
-function run() {
+function run(title = 'Hello') {
   const apiKey = PropertiesService.getScriptProperties().getProperty('API_KEY');
   const parentDatabaseID = PropertiesService.getScriptProperties().getProperty('DATABASE_URL');
+  const titleColumnName = 'Title'
   const parentTimeColumnName = 'Time'
   const endTimeColumnName = 'Endtime';
   const categoryColumnName = 'Category';
@@ -25,7 +26,19 @@ function run() {
       ]
     })
   };
-  const pageID = getDatabase(options, parentDatabaseID)[0].id;
+  let pageID = null;
+  if(title) {
+    const pageList = getDatabase(options, parentDatabaseID);
+    Object.keys(pageList).forEach(function(key) {
+      const pageListTitle = pageList[key].properties[titleColumnName].title[0];
+      if(pageListTitle && pageListTitle.plain_text === title) {
+        pageID = pageList[key].id;
+      }
+    });
+  }
+  if(!pageID) {
+    pageID = getDatabase(options, parentDatabaseID)[0].id;
+  }
   console.log('最新ページID: ' + pageID);
   options = {
     'method' : 'get',

@@ -15,7 +15,12 @@
   <body>
 
     <div id="app" v-cloak class="container">
-      <button type="button" class="btn btn-primary mx-auto d-block my-3" @click="init">Calculate!!</button>
+      <div class="row mx-auto my-3">
+        <div class="offset-4 col-3">
+          <input type="text" v-model="title" class="form-control" placeholder="省略可: タイトル名を指定">
+        </div>
+        <button type="button" class="btn btn-primary col-1" @click="init">Calculate!!</button>
+      </div>
       <vue-loaders v-if="loading" name="ball-beat" color="royalblue" scale="1" class="d-block mx-auto text-center"></vue-loaders>
       <ul v-if="manHourData" class="list-unstyled text-center">
         <li v-for="(usage, category) in manHourData" class="d-inline-block px-2">
@@ -36,13 +41,14 @@
     el: '#app',
     data: {
       loading: false,
+      title: '',
       manHourData: null,
       colors: null
     },
     methods: {
       init: function() {
         this.loading = true;
-        google.script.run.withSuccessHandler(this.success).withFailureHandler(this.failure).run();
+        google.script.run.withSuccessHandler(this.success).withFailureHandler(this.failure).run(this.title);
       },
       success: function(data) {
         this.loading = false;
