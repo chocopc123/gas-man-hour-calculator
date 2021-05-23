@@ -16,10 +16,12 @@
 
     <div id="app" v-cloak class="container">
       <div class="row mx-auto my-3">
-        <div class="offset-2 col-5">
-          <input type="text" v-model="title" class="form-control" placeholder="省略可: タイトル名を指定">
+        <div class="pe-xs-0 pe-sm-0 offset-1 col-10 offset-sm-1 col-sm-7 offset-md-1 col-md-7 offset-lg-2 col-lg-6 offset-xl-3 col-xl-4">
+          <input type="text" v-model="title" class="form-control mb-1" placeholder="省略可: タイトル名を指定">
         </div>
-        <button type="button" class="btn btn-primary col-3" @click="init">Calculate!!</button>
+        <div class="offset-1 col-10 offset-sm-0 col-sm-3 col-md-3 col-lg-2 col-xl-2">
+          <button type="button" class="btn btn-primary col-12" @click="init">Calculate!!</button>
+        </div>
       </div>
       <vue-loaders v-if="loading" name="ball-beat" color="royalblue" scale="1" class="d-block mx-auto text-center"></vue-loaders>
       <ul v-if="manHourData" class="list-unstyled text-center">
