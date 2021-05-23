@@ -1,9 +1,13 @@
-function calcManHour(manHourData, endTimeColumnName, categoryColumnName) {
-  const usageJson = {};
-  const colorJson = {};
+export function calcManHour(
+  manHourData: any,
+  endTimeColumnName: string,
+  categoryColumnName: string
+): any {
+  const usageJson: any = {};
+  const colorJson: any = {};
   let previousEndtime = "";
   let first = true;
-  manHourData.forEach(function (data) {
+  manHourData.forEach(function (data: any) {
     if (!data.properties[endTimeColumnName].rich_text[0]) {
       return true;
     }
@@ -35,7 +39,7 @@ function calcManHour(manHourData, endTimeColumnName, categoryColumnName) {
   return [convertStringTime(usageJson), colorJson];
 }
 
-function convertStringTime(json) {
+function convertStringTime(json: any) {
   Object.keys(json).forEach(function (key) {
     const hour = Math.floor(json[key] / 60);
     const rem = json[key] % 60;
@@ -45,7 +49,7 @@ function convertStringTime(json) {
   return json;
 }
 
-function createStringTime(hour, rem) {
+function createStringTime(hour: number, rem: number) {
   const stringHour = hour + "h";
   if (rem !== 0) {
     return stringHour + rem + "m";

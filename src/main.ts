@@ -1,10 +1,12 @@
-export function doGet() {
-  return HtmlService.createTemplateFromFile("index")
+import { calcManHour } from "./calculate";
+
+export function doGet(): GoogleAppsScript.HTML.HtmlOutput {
+  return HtmlService.createTemplateFromFile("app")
     .evaluate()
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
-export function run(title = null) {
+export function run(title = ""): any {
   const apiKey = PropertiesService.getScriptProperties().getProperty("API_KEY");
   const parentDatabaseID =
     PropertiesService.getScriptProperties().getProperty("DATABASE_URL");
@@ -68,7 +70,7 @@ export function run(title = null) {
   return [json, colorJson];
 }
 
-function getPageId(pageList, title, titleColumnName) {
+function getPageId(pageList: any, title: string, titleColumnName: string) {
   let pageID = null;
   if (title) {
     Object.keys(pageList).forEach(function (key) {
@@ -84,14 +86,14 @@ function getPageId(pageList, title, titleColumnName) {
   return pageID;
 }
 
-function getDatabase(options, databaseID) {
+function getDatabase(options: any, databaseID: string | null) {
   const apiURL = `https://api.notion.com/v1/databases/${databaseID}/query`;
   const response = UrlFetchApp.fetch(apiURL, options).getContentText();
   const responseJson = JSON.parse(response);
   return responseJson.results;
 }
 
-function getBlocks(options, pageID) {
+function getBlocks(options: any, pageID: string) {
   const apiURL = `https://api.notion.com/v1/blocks/${pageID}/children?page_size=100`;
   const response = UrlFetchApp.fetch(apiURL, options).getContentText();
   const responseJson = JSON.parse(response);

@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "deploy": "npm run build && clasp push",
-    "lint": "eslint --fix --ext .ts,.js --ignore-path .gitignore ."
+    "lint": "eslint --fix --ext .ts,.js --ignore-path .gitignore .",
+    "watch": "watch 'npm run deploy' ./src"
   },
   "repository": {
     "type": "git",
@@ -21,11 +22,13 @@
   "homepage": "https://github.com/chocopc123/gas-man-hour-calculator#readme",
   "devDependencies": {
     "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
     "@babel/preset-typescript": "^7.13.0",
     "@types/google-apps-script": "^1.0.33",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
     "babel-loader": "^8.2.2",
+    "es3ify-webpack-plugin": "^0.1.0",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-loader": "^4.0.2",
