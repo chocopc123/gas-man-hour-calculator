@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loaders@3.3.0/dist/vue-loaders.css">
     <script src="https://cdn.jsdelivr.net/npm/vue-loaders@3.3.0/dist/vue-loaders.umd.js"></script>
 
-    <?!= HtmlService.createHtmlOutputFromFile('style.css').getContent(); ?>
+    <?!= HtmlService.createHtmlOutputFromFile('src/style.css').getContent(); ?>
   </head>
 
   <body>
@@ -26,7 +26,7 @@
       <vue-loaders v-if="loading" name="ball-beat" color="royalblue" scale="1" class="d-block mx-auto text-center"></vue-loaders>
       <ul v-if="manHourData" class="list-unstyled text-center">
         <li v-for="(usage, category) in manHourData" class="d-inline-block px-2">
-          <span class="badge" :class='`bg-${colors[category]}`'>{{ category }}</span> {{ usage }}
+          <span class="badge" :class="`bg-${colors[category]}`">{{ category }}</span> {{ usage }}
         </li>
       </ul>
     </div>

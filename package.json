@@ -1,0 +1,42 @@
+{
+  "name": "gas-man-hour-calculator",
+  "version": "1.0.0",
+  "description": "GASでNotionAPIを叩いて、工数計算をするWebアプリ  \r https://script.google.com/d/1VFE3FOtPXgehGmhECufkUBlezZrsDIEW9X-t5H4JsJl__ikjprgTs7CH/edit?usp=sharing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "deploy": "npm run build && clasp push",
+    "lint": "eslint --fix --ext .ts,.js --ignore-path .gitignore .",
+    "watch": "watch 'npm run deploy' ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chocopc123/gas-man-hour-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chocopc123/gas-man-hour-calculator/issues"
+  },
+  "homepage": "https://github.com/chocopc123/gas-man-hour-calculator#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/google-apps-script": "^1.0.33",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "babel-loader": "^8.2.2",
+    "es3ify-webpack-plugin": "^0.1.0",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^3.4.0",
+    "gas-webpack-plugin": "^2.0.1",
+    "prettier": "^2.3.0",
+    "typescript": "^4.2.4",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0"
+  }
+}
