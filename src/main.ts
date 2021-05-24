@@ -1,7 +1,7 @@
 import { calcManHour } from "./calculate";
 
 export function doGet(): GoogleAppsScript.HTML.HtmlOutput {
-  return HtmlService.createTemplateFromFile("app")
+  return HtmlService.createTemplateFromFile("src/app")
     .evaluate()
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
