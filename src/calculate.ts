@@ -5,9 +5,11 @@ export function calcManHour(
 ): any {
   const usageJson: any = {};
   const colorJson: any = {};
-  let previousEndtime = "";
+  let previousEndtime: string;
+  let previousCategory: string;
+  let previousColor: string;
   let first = true;
-  manHourData.forEach(function (data: any) {
+  manHourData.forEach(function (data: any): any {
     if (!data.properties[endTimeColumnName].rich_text[0]) {
       return true;
     }
@@ -27,14 +29,22 @@ export function calcManHour(
     previousEndtime = endtime;
 
     const usage = usageHour * 60 + usageMinutes;
-    const category = data.properties[categoryColumnName].select.name;
-    const color = data.properties[categoryColumnName].select.color;
+    let category: string;
+    let color: string;
+    if (data.properties[categoryColumnName]) {
+      category = data.properties[categoryColumnName].select.name;
+      color = data.properties[categoryColumnName].select.color;
+    } else {
+      category = previousCategory;
+      color = previousColor;
+    }
     if (usageJson[category]) {
       usageJson[category] += usage;
     } else {
       usageJson[category] = usage;
       colorJson[category] = color;
     }
+    previousCategory = category;
   });
   return [convertStringTime(usageJson), colorJson];
 }
