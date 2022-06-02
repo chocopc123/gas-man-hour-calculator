@@ -1,5 +1,5 @@
 # gas-man-hour-calculator
-GASでNotionAPIを叩いて、工数計算をするWebアプリ  
+Notionのテーブルで管理している工数をGASでNotionAPIを叩いて計算をするアプリ
 https://script.google.com/d/1VFE3FOtPXgehGmhECufkUBlezZrsDIEW9X-t5H4JsJl__ikjprgTs7CH/edit?usp=sharing
 
 ## 環境変数(プロパティ)
